@@ -1,0 +1,6 @@
+Attribut; Définition; Type 
+date; représente la date de l'évenement ; <int>
+page; le numéro de la page; <<int>
+longitude ; longitude du coordonée GPS ; <int>
+latitude ; latitude du coordonée GPS ; <int>
+genre_query ; spécification du genre de l'évenement; <int>
