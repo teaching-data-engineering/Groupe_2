@@ -1,4 +1,6 @@
 # Projet Tech. IA
 
-JUST A TEST
-test v2
+Timo Test version 2 
+
+
+Re conflit
