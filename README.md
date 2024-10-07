@@ -1,3 +1,3 @@
 # Projet Tech. IA
 
-Travail de groupe réalisé en seconde année de master.
+est ce que ca marche ?
