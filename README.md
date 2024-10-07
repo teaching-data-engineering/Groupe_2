@@ -1,3 +1,3 @@
 # Projet Tech. IA
 
-blabklabla
+Travail de groupe réalisé en seconde année de master.
