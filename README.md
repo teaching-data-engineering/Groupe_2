@@ -1,8 +1,6 @@
 # Projet Tech. IA
 
-Timo Test version 2 dbheebbhe
+Timo Test version 2 
 
 
-Test
-
-gitt f,,fe,z
+Re conflit
