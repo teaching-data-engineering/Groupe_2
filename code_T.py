@@ -186,6 +186,8 @@ def enrish(data):
     data['num_semaine'] = data['startsAt'].apply(num_week)
     data['jour_avant']=  (datetime.datetime.today() - data['startsAt'])
     data['jour_avant']= data['jour_avant'].apply(lambda date: date.days)
+    data= data.drop(columns= 'Unnamed: 0')
     return data
 
 data= enrish(data)
+print(data.head(10))
