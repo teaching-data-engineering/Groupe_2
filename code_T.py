@@ -76,7 +76,7 @@ def scrap_multiple_pages(start_date, end_date):
             time.sleep(sleep_time)
             egale=True
 
-    return dico_ev,page
+    return dico_ev,page-1
 
 
 
