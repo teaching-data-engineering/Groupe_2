@@ -167,3 +167,15 @@ print(data.shape)
 
 
 
+from google.cloud import bigquery
+
+
+from google.oauth2 import service_account
+import pandas_gbq
+
+
+
+credentials = service_account.Credentials.from_service_account_file(
+    "sa-key-group-2.json",
+)
+pandas_gbq.to_gbq(data, "dataset_groupe_2.test", project_id="ai-technologies-ur2",credentials=credentials, if_exists="replace")
