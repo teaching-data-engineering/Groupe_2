@@ -7,7 +7,8 @@ import os
 import random
 import time
 import datetime
-
+import pandas as pd
+import json
 
 url = f"https://www.bandsintown.com/choose-dates/fetch-next/upcomingEvents?longitude=-74.006&latitude=40.7128&genre_query=all-genres"
             
@@ -106,7 +107,64 @@ def rcp_octobre(j):
 
 
 
-rcp_octobre(8)
+# Récupération des données
+# rcp_octobre(8)
+
+# Transformation des json en df pandas
+def jsons_to_dataframe(directory):
+    # Liste pour stocker tous les événements
+    events = []
+
+    # Parcourir tous les fichiers dans le répertoire
+    for filename in os.listdir(directory):
+        if filename.endswith('.json'):  # Vérifiez que le fichier est un JSON
+            json_file_path = os.path.join(directory, filename)
+            # Lire le fichier JSON
+            with open(json_file_path, 'r') as f:
+                data = json.load(f)
+            
+            # Parcourir les données JSON
+            for date_range, event_list in data.items():
+                for event in event_list:
+                    # Ajout de la période à chaque événement
+                    event['date_range'] = date_range
+                    # Ajouter l'événement à la liste
+                    events.append(event)
+
+    # Convertir la liste en DataFrame
+    final_df = pd.DataFrame(events)
+    
+    # On peut aussi réorganiser ou renommer certaines colonnes si nécessaire
+    return final_df
+
+# Utilisation de la fonction
+directory = 'data_events'  # Remplacez par le chemin correct vers votre dossier
+df = jsons_to_dataframe(directory)
+
+# Afficher les premières lignes du DataFrame
+#print(df.head())
+#print(df.shape)
+
+
+# Affichage propre du dataframe
+def afficher_avec_tabulate(df):
+    df = df.drop(columns = ['artistImageSrc', 'properlySizedImageURL', 'callToActionRedirectUrl', 'fallbackImageUrl', 'streamingEvent', 'pinIconSrc', 'eventUrl', 'artistUrl', 'watchLiveText', 'isPlus', 'callToActionText', 'timezone'])
+    df[['DateStartEvent', 'HourStartEvent']] = df['startsAt'].str.split('T', expand=True)
+    df = df.drop(columns = ['DateStartEvent'])
+
+    return df
+
+# Téléchargement du fichier
+df.to_csv("data_NY.csv")
+
+# Import du fichier
+
+data = pd.read_csv("data_NY.csv")
+
+
+# Utilisation de la fonction
+afficher_avec_tabulate(data)
+print(data.shape)
 
 
 
