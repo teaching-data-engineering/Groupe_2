@@ -8,7 +8,7 @@ import random
 import time
 import datetime
 import pandas as pd
-import json
+
 
 url = f"https://www.bandsintown.com/choose-dates/fetch-next/upcomingEvents?longitude=-74.006&latitude=40.7128&genre_query=all-genres"
             
@@ -104,7 +104,6 @@ def rcp_octobre(j):
         dico_ev,page = scrap_multiple_pages(dateone,datebis)
 
     
-
 
 
 # Récupération des données
