@@ -163,7 +163,29 @@ data = pd.read_csv("data_NY.csv")
 
 # Utilisation de la fonction
 afficher_avec_tabulate(data)
-print(data.shape)
 
+def num_week(my_date):
+    day = my_date.day  # Récupérer le jour du mois
+    num = 0
+    if day <= 7:
+        num = 1
+    elif 8 <= day <= 14:
+        num = 2
+    elif 15 <= day <= 21:
+        num = 3
+    elif 22 <= day <= 28:
+        num = 4
+    elif 29 <= day <= 31:
+        num = 5
+    return num
 
+def enrish(data):
+    data['startsAt'] = pd.to_datetime(data['startsAt'])
+    data['endsAt'] = pd.to_datetime(data['endsAt'])
+    data['is_weekend'] = data['startsAt'].apply(lambda date: date.weekday() >= 5)
+    data['num_semaine'] = data['startsAt'].apply(num_week)
+    data['jour_avant']=  (datetime.datetime.today() - data['startsAt'])
+    data['jour_avant']= data['jour_avant'].apply(lambda date: date.days)
+    return data
 
+data= enrish(data)
