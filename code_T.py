@@ -119,7 +119,8 @@ def jsons_to_dataframe(directory):
         if filename.endswith('.json'):  # Vérifiez que le fichier est un JSON
             json_file_path = os.path.join(directory, filename)
             # Lire le fichier JSON
-            with open(json_file_path, 'r') as f:
+            
+            with open(json_file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
             # Parcourir les données JSON
@@ -129,12 +130,14 @@ def jsons_to_dataframe(directory):
                     event['date_range'] = date_range
                     # Ajouter l'événement à la liste
                     events.append(event)
-
+    print(True)
     # Convertir la liste en DataFrame
     final_df = pd.DataFrame(events)
     
     # On peut aussi réorganiser ou renommer certaines colonnes si nécessaire
     return final_df
+
+
 
 # Utilisation de la fonction
 directory = 'data_events'  # Remplacez par le chemin correct vers votre dossier
@@ -179,6 +182,7 @@ def num_week(my_date):
         num = 5
     return num
 
+
 def enrish(data):
     data['startsAt'] = pd.to_datetime(data['startsAt'])
     data['endsAt'] = pd.to_datetime(data['endsAt'])
@@ -188,6 +192,7 @@ def enrish(data):
     data['jour_avant']= data['jour_avant'].apply(lambda date: date.days)
     data= data.drop(columns= 'Unnamed: 0')
     return data
+
 
 data= enrish(data)
 print(data.head(10))
