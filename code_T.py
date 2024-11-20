@@ -119,7 +119,7 @@ def jsons_to_dataframe(directory):
         if filename.endswith('.json'):  # Vérifiez que le fichier est un JSON
             json_file_path = os.path.join(directory, filename)
             # Lire le fichier JSON
-            with open(json_file_path, 'r') as f:
+            with open(json_file_path, 'r', encoding="utf-8") as f:
                 data = json.load(f)
             
             # Parcourir les données JSON
@@ -193,15 +193,15 @@ data= enrish(data)
 print(data.head(10))
 
 
-from google.cloud import bigquery
+# from google.cloud import bigquery
 
 
-from google.oauth2 import service_account
-import pandas_gbq
+# from google.oauth2 import service_account
+# import pandas_gbq
 
 
 
-credentials = service_account.Credentials.from_service_account_file(
-    "sa-key-group-2.json",
-)
-pandas_gbq.to_gbq(data, "dataset_groupe_2.test", project_id="ai-technologies-ur2",credentials=credentials, if_exists="replace")
+# credentials = service_account.Credentials.from_service_account_file(
+#     "sa-key-group-2.json",
+# )
+# pandas_gbq.to_gbq(data, "dataset_groupe_2.test", project_id="ai-technologies-ur2",credentials=credentials, if_exists="replace")
