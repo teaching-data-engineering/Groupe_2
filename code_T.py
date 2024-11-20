@@ -211,7 +211,6 @@ def enrish(data):
     
     return data
 
-
 data= enrish(data)
 print(data['popularity'].head(10))
 
