@@ -195,7 +195,7 @@ def enrish(data):
 
 
 data= enrish(data)
-print(data.head(10))
+print(data.sample(10))
 
 
 from google.cloud import bigquery
@@ -210,3 +210,6 @@ credentials = service_account.Credentials.from_service_account_file(
     "sa-key-group-2.json",
 )
 pandas_gbq.to_gbq(data, "dataset_groupe_2.test", project_id="ai-technologies-ur2",credentials=credentials, if_exists="replace")
+
+print(data.columns)
+
