@@ -8,7 +8,8 @@ import random
 import time
 import datetime
 import pandas as pd
-
+from bs4 import BeautifulSoup
+import re
 
 url = f"https://www.bandsintown.com/choose-dates/fetch-next/upcomingEvents?longitude=-74.006&latitude=40.7128&genre_query=all-genres"
             
@@ -130,7 +131,7 @@ def jsons_to_dataframe(directory):
                     event['date_range'] = date_range
                     # Ajouter l'événement à la liste
                     events.append(event)
-    print(True)
+
     # Convertir la liste en DataFrame
     final_df = pd.DataFrame(events)
     
@@ -143,6 +144,7 @@ def jsons_to_dataframe(directory):
 directory = 'data_events'  # Remplacez par le chemin correct vers votre dossier
 df = jsons_to_dataframe(directory)
 
+#print(df.columns)
 # Afficher les premières lignes du DataFrame
 #print(df.head())
 #print(df.shape)
@@ -163,9 +165,64 @@ df.to_csv("data_NY.csv")
 
 data = pd.read_csv("data_NY.csv")
 
+def recup_followers_Shows(url):
 
-# Utilisation de la fonction
-afficher_avec_tabulate(data)
+    sleep_time = random.uniform(0.13, 0.56)
+    time.sleep(sleep_time)
+
+    user_agents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Firefox/92.0"
+]
+
+    headers = {
+    "User-Agent": random.choice(user_agents)
+}
+    response = requests.get(url,headers=headers)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    #print(soup)
+
+    # Extraction du nombre de followers
+    followers_div = soup.find('div', class_='eR4wTX9jPTzBy4HTQWjx')
+    if followers_div:
+        followers_text = followers_div.text
+        # Recherche d'un chiffre avec ou sans virgule avant "Followers"
+        followers_match = re.search(r'([\d,]+)\s*Followers', followers_text, re.IGNORECASE)
+        if followers_match:
+            # Nettoyer la valeur pour retirer les virgules
+            followers = followers_match.group(1).replace(',', '')
+        else:
+            followers = None
+    else:
+        followers = None
+        
+
+    # Extraction du nombre de shows
+    show_div = soup.find('div', class_='IVmyWKohpQCYW1CkKHYw')
+    if show_div:
+        show_text = show_div.text
+        # Recherche du chiffre avant "Shows"
+        show_match = re.search(r'(\d+)', show_text, re.IGNORECASE)
+        show = show_match.group(1) if show_match else None
+    else:
+        show = None
+        
+
+    return followers, show  
+
+
+# l_followers = list()
+# l_show = list()
+
+# for artis_url in data['artistUrl']:
+#     followers,show = recup_followers_Shows(artis_url)
+#     l_followers.append(followers.split()[0])
+#     l_show.append(show.split()[0])
+
+# print(l_followers[:3])
 
 def num_week(my_date):
     day = my_date.day  # Récupérer le jour du mois
@@ -192,7 +249,6 @@ def segment_rsvp(df, rsvp_count):
     else:
         return 'Very High'
 
-
 def enrish(data):
     data['startsAt'] = pd.to_datetime(data['startsAt'])
     data['endsAt'] = pd.to_datetime(data['endsAt'])
@@ -201,18 +257,23 @@ def enrish(data):
     data['jour_avant']=  (datetime.datetime.today() - data['startsAt'])
     data['jour_avant']= data['jour_avant'].apply(lambda date: date.days)
     data= data.drop(columns= 'Unnamed: 0')
-    
-    # si pas de endsAt : alors endsAt = startsAt + 1h
-    data['endsAt'] = data['endsAt'].fillna(data['startsAt'] + pd.Timedelta(hours=1))
-    
-    data['event_duration'] = round((data['endsAt'] - data['startsAt']).dt.total_seconds() / 3600, 1)  # durée en heures
-    
-    data['popularity'] = data['rsvpCountInt'].apply(lambda rsvp_count: segment_rsvp(data, rsvp_count))
-    
     return data
 
-data= enrish(data)
-print(data['popularity'].head(10))
+# Utilisation de la fonction
+#print(afficher_avec_tabulate(data))
+
+data = enrish(data)
+
+# Téléchargement du fichier
+data = enrish(data)
+data.to_csv("data_NY_enrish.csv")
+#print(data.columns)
+
+
+
+# print(data.columns)
+
+# print(data.head(10))
 
 
 # from google.cloud import bigquery
