@@ -249,6 +249,7 @@ def segment_rsvp(df, rsvp_count):
     else:
         return 'Very High'
 
+
 def enrish(data):
     data['startsAt'] = pd.to_datetime(data['startsAt'])
     data['endsAt'] = pd.to_datetime(data['endsAt'])
@@ -256,7 +257,24 @@ def enrish(data):
     data['num_semaine'] = data['startsAt'].apply(num_week)
     data['jour_avant']=  (datetime.datetime.today() - data['startsAt'])
     data['jour_avant']= data['jour_avant'].apply(lambda date: date.days)
-    data= data.drop(columns= 'Unnamed: 0')
+    # l_followers = list()
+    # l_show = list()
+    # for artis_url in data['artistUrl']:
+    #     time.sleep(random.uniform(1,3))
+    #     followers, show = recup_followers_Shows(artis_url)
+    #     l_followers.append(followers)
+    #     l_show.append(show)
+
+    # data['show'] = l_show 
+    # data['followers'] =l_followers 
+
+    # si pas de endsAt : alors endsAt = startsAt + 1h
+    data['endsAt'] = data['endsAt'].fillna(data['startsAt'] + pd.Timedelta(hours=1))
+    
+    data['event_duration'] = round((data['endsAt'] - data['startsAt']).dt.total_seconds() / 3600, 1)  # durée en heures
+    
+    data['popularity'] = data['rsvpCountInt'].apply(lambda rsvp_count: segment_rsvp(data, rsvp_count))
+    #data= data.drop(columns= 'Unnamed: 0')
     return data
 
 # Utilisation de la fonction
@@ -266,12 +284,14 @@ data = enrish(data)
 
 # Téléchargement du fichier
 data = enrish(data)
-data.to_csv("data_NY_enrish.csv")
+
 #print(data.columns)
 
-
-
-# print(data.columns)
+data = data.drop(columns=["Unnamed: 0","artistImageSrc","properlySizedImageURL"])
+data = data.drop(columns= ["callToActionRedirectUrl","fallbackImageUrl","pinIconSrc"])
+data = data.drop(columns= ["eventUrl","displayRule"])
+data.to_csv("data_NY_enrish.csv")
+print(data.columns)
 
 # print(data.head(10))
 
