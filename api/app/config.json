@@ -5,7 +5,9 @@
         "top_venues": "top_venues_token",
         "event_on_hour": "event_on_hour_token",
         "best_artists": "best_artists_token",
-        "get_events": "get_events_token"
+        "get_events": "get_events_token",
+        "event_by_day_of_week": "event_by_day_of_week_token",
+        "event_search": "event_search_token"
     },
     "master_token": "full_access_token"
 }

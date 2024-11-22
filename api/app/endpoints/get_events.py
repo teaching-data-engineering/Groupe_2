@@ -23,3 +23,4 @@ def get_events(
         return paginate(results, page, lim)
     except Exception as e:
         return {"success": False, "error": str(e)}
+
