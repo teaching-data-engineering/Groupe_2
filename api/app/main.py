@@ -19,22 +19,7 @@ app = FastAPI(
     version="1.0.0",
     contact={
         "name": "Group 2"
-    },
-    openapi_tags=[
-        {
-            "name": "Evenements",
-            "description": "Accédez aux informations sur les événements à New York.",
-            "externalDocs": {
-                "description": "Documentation sur les événements"
-            }
-        }
-    ],
-    swagger_ui_parameters={
-        "defaultModelsExpandDepth": -1,  # Réduit la profondeur des modèles affichés
-        "defaultModelExpandDepth": 2  # Pour montrer plus de détails sur les objets
-    },
-    docs_url="/docs",
-    redoc_url="/redoc"
+    }
 )
 
 
