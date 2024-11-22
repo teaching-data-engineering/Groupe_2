@@ -46,7 +46,7 @@ def get_row_count(limit: int):
     #f'SELECT * FROM {lien} LIMIT {limit}'
     return response_req(query)
 
-
+###-----------------------------------------------
 
 def response_req(query):
     try:
@@ -69,7 +69,7 @@ def get_events_by_day(week: Union[int, None] = None):
     lien= "ai-technologies-ur2.dataset_groupe_2.test"
     filter_req= f"WHERE num_semaine= {week}" if isinstance(week,int) else ""
     query= f'SELECT DATE(startsAt),  COUNT(title) AS Total_events FROM {lien} {filter_req} GROUP BY DATE(startsAt)'
-    return response_req(query)
+    return response_req(query)s
 
 @app.get("/events/search/{artistName}+{venueName}+{date_start}+{date_end}")
 def get_events_search(artistName: str | None, venueName: str| None , date_start: str | None, date_end: str | None):
