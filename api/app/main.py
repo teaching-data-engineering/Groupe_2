@@ -10,10 +10,8 @@ from endpoints.best_artists import router as best_artists_router
 from endpoints.get_events import router as get_events_router
 from endpoints.events_by_day_of_week import router as events_by_day_of_week_router
 from endpoints.event_search_date_start_end import router as event_search_date_start_end_router
+from endpoints.event_search import router as event_search_router
 import os
-
-# Obtenir le chemin absolu du répertoire courant
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = FastAPI(
     title="API des Événements à New York",
@@ -27,39 +25,18 @@ app = FastAPI(
             "name": "Evenements",
             "description": "Accédez aux informations sur les événements à New York.",
             "externalDocs": {
-                "description": "Documentation sur les événements",
-                "url": "https://example.com"
+                "description": "Documentation sur les événements"
             }
         }
     ],
     swagger_ui_parameters={
-        "defaultModelsExpandDepth": -1,
-        "defaultModelExpandDepth": 2
-    }
+        "defaultModelsExpandDepth": -1,  # Réduit la profondeur des modèles affichés
+        "defaultModelExpandDepth": 2  # Pour montrer plus de détails sur les objets
+    },
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
-# Monter les fichiers statiques avec le chemin absolu
-static_dir = os.path.join(BASE_DIR, "static")
-templates_dir = os.path.join(BASE_DIR, "templates")
-
-# Vérifier et créer les répertoires s'ils n'existent pas
-if not os.path.exists(static_dir):
-    os.makedirs(static_dir)
-    os.makedirs(os.path.join(static_dir, "css"))
-    os.makedirs(os.path.join(static_dir, "js"))
-
-if not os.path.exists(templates_dir):
-    os.makedirs(templates_dir)
-
-app.mount("/static", StaticFiles(directory=static_dir), name="static")
-
-# Configurer les templates avec le chemin absolu
-templates = Jinja2Templates(directory=templates_dir)
-
-# Route pour la page d'accueil
-@app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
 
 # Inclure les routes
 app.include_router(event_loc_router)
@@ -70,6 +47,7 @@ app.include_router(best_artists_router)
 app.include_router(get_events_router)
 app.include_router(events_by_day_of_week_router)
 app.include_router(event_search_date_start_end_router)
+app.include_router(event_search_router)
 
 if __name__ == "__main__":
     import uvicorn
