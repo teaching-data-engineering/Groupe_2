@@ -1,48 +1,47 @@
-<!-- templates/index.html -->
 {% extends "base.html" %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-gray-800 mb-8">Bienvenue sur l'API des Événements à New York</h1>
+    <h1 class="text-4xl font-bold text-header mb-8">Bienvenue sur l'API des Événements à New York</h1>
     
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4">Points d'accès disponibles</h2>
+    <div class="bg-beige rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-header">Points d'accès disponibles</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="border rounded p-4 hover:bg-gray-50">
-                <h3 class="font-bold text-blue-600">Localisation des événements</h3>
-                <p class="text-gray-600">Consultez les lieux des événements</p>
-                <a href="/docs#/default/get_event_locations_event_loc_get" class="text-blue-500 hover:underline">Documentation →</a>
+                <h3 class="font-bold card-text">Localisation des événements</h3>
+                <p class="card-text">Consultez les lieux des événements</p>
+                <a href="/docs#/default/get_event_locations_event_loc_get" class="text-red-500 hover:underline">Documentation →</a>
             </div>
             <div class="border rounded p-4 hover:bg-gray-50">
-                <h3 class="font-bold text-blue-600">Top des lieux</h3>
-                <p class="text-gray-600">Découvrez les lieux les plus populaires</p>
-                <a href="/docs#/default/get_top_venues_top_venues_get" class="text-blue-500 hover:underline">Documentation →</a>
+                <h3 class="font-bold card-text">Top des lieux</h3>
+                <p class="card-text">Découvrez les lieux les plus populaires</p>
+                <a href="/docs#/default/get_top_venues_top_venues_get" class="text-red-500 hover:underline">Documentation →</a>
             </div>
             <div class="border rounded p-4 hover:bg-gray-50">
-                <h3 class="font-bold text-blue-600">Événements par heure</h3>
-                <p class="text-gray-600">Voir les événements selon l'heure</p>
-                <a href="/docs#/default/get_events_by_hour_event_on_hour_get" class="text-blue-500 hover:underline">Documentation →</a>
+                <h3 class="font-bold card-text">Événements par heure</h3>
+                <p class="card-text">Voir les événements selon l'heure</p>
+                <a href="/docs#/default/get_events_by_hour_event_on_hour_get" class="text-red-500 hover:underline">Documentation →</a>
             </div>
             <div class="border rounded p-4 hover:bg-gray-50">
-                <h3 class="font-bold text-blue-600">Meilleurs artistes</h3>
-                <p class="text-gray-600">Liste des artistes les plus populaires</p>
-                <a href="/docs#/default/get_best_artists_best_artists_get" class="text-blue-500 hover:underline">Documentation →</a>
+                <h3 class="font-bold card-text">Meilleurs artistes</h3>
+                <p class="card-text">Liste des artistes les plus populaires</p>
+                <a href="/docs#/default/get_best_artists_best_artists_get" class="text-red-500 hover:underline">Documentation →</a>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4">Comment utiliser l'API</h2>
+    <div class="bg-beige rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-header">Comment utiliser l'API</h2>
         <div class="space-y-4">
-            <p class="text-gray-700">Notre API vous permet d'accéder aux informations sur les événements à New York. Vous pouvez :</p>
-            <ul class="list-disc list-inside text-gray-700 ml-4">
+            <p class="card-text">Notre API vous permet d'accéder aux informations sur les événements à New York. Vous pouvez :</p>
+            <ul class="list-disc list-inside card-text ml-4">
                 <li>Consulter les événements par lieu</li>
                 <li>Voir les statistiques de fréquentation</li>
                 <li>Obtenir des informations sur les artistes</li>
                 <li>Explorer les événements par horaire</li>
             </ul>
             <div class="mt-4">
-                <a href="/docs" class="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Consulter la documentation complète →</a>
+                <a href="/docs" class="inline-block bg-red-600 text-beige px-6 py-2 rounded hover:bg-red-700">Consulter la documentation complète →</a>
             </div>
         </div>
     </div>

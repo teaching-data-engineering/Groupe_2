@@ -9,6 +9,7 @@ from endpoints.event_on_hour import router as event_on_hour_router
 from endpoints.best_artists import router as best_artists_router
 from endpoints.get_events import router as get_events_router
 from endpoints.events_by_day_of_week import router as events_by_day_of_week_router
+from endpoints.event_search_date_start_end import router as event_search_date_start_end_router
 import os
 
 # Obtenir le chemin absolu du répertoire courant
@@ -68,6 +69,7 @@ app.include_router(event_on_hour_router)
 app.include_router(best_artists_router)
 app.include_router(get_events_router)
 app.include_router(events_by_day_of_week_router)
+app.include_router(event_search_date_start_end_router)
 
 if __name__ == "__main__":
     import uvicorn

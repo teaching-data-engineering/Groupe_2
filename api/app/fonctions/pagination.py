@@ -24,9 +24,10 @@ def paginate(data: list, page: int = 1, lim: int = 10):
     return {
         "data": paginated_data,
         "metadata": {
-            "total_items": total_items,
+            "page" : page,
             "total_pages": (total_items + lim - 1) // lim,
-            "current_page": page,
             "page_size": lim,
+            "total_items": total_items,
+            "next_page": page+1
         }
     }

@@ -7,7 +7,8 @@
         "best_artists": "best_artists_token",
         "get_events": "get_events_token",
         "event_by_day_of_week": "event_by_day_of_week_token",
-        "event_search": "event_search_token"
+        "event_search": "event_search_token",
+        "events_search_h_start_end": "events_search_h_start_end_token"
     },
     "master_token": "full_access_token"
 }
