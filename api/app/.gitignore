@@ -1,2 +1,3 @@
 # Ignorer le fichier JSON contenant les tokens et keys
-app/config.json
+*config.json
+*sa-key-group-2.json

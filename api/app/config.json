@@ -1,3 +1,11 @@
 {
-    "tokens": ["FullAccess", "Acces1", "Acces2"]
+    "tokens": {
+        "event_loc": "event_loc_token",
+        "row_count": "row_count_token",
+        "top_venues": "top_venues_token",
+        "event_on_hour": "event_on_hour_token",
+        "best_artists": "best_artists_token",
+        "get_events": "get_events_token"
+    },
+    "master_token": "full_access_token"
 }
